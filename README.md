@@ -1,5 +1,5 @@
-maven-nar-plugin.github.com
-===========================
+maven-nar.github.com
+====================
 
 Website of maven-nar-plugin.
 See http://maven-nar.github.com/ for details.
