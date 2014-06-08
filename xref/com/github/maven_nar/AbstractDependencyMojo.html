@@ -255,7 +255,7 @@
 <a class="jxr_linenumber" name="245" href="#245">245</a> 									aolString.toString(), classifier);
 <a class="jxr_linenumber" name="246" href="#246">246</a> 						}
 <a class="jxr_linenumber" name="247" href="#247">247</a> 						String version = nar.length &gt;= 5 ? nar[4].trim()
-<a class="jxr_linenumber" name="248" href="#248">248</a> 								: dependency.getVersion();
+<a class="jxr_linenumber" name="248" href="#248">248</a> 								: dependency.getBaseVersion();
 <a class="jxr_linenumber" name="249" href="#249">249</a> 						artifactList.add(<strong class="jxr_keyword">new</strong> <a href="../../../com/github/maven_nar/AttachedNarArtifact.html">AttachedNarArtifact</a>(groupId,
 <a class="jxr_linenumber" name="250" href="#250">250</a> 								artifactId, version, dependency.getScope(),
 <a class="jxr_linenumber" name="251" href="#251">251</a> 								ext, classifier, dependency.isOptional(),

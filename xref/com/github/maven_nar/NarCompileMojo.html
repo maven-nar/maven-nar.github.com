@@ -315,7 +315,7 @@
 <a class="jxr_linenumber" name="305" href="#305">305</a>                 File unpackDirectory = getUnpackDirectory();
 <a class="jxr_linenumber" name="306" href="#306">306</a>                 File include =
 <a class="jxr_linenumber" name="307" href="#307">307</a>                     getLayout().getIncludeDirectory( unpackDirectory, narDependency.getArtifactId(),
-<a class="jxr_linenumber" name="308" href="#308">308</a>                                                      narDependency.getVersion() );
+<a class="jxr_linenumber" name="308" href="#308">308</a>                                                      narDependency.getBaseVersion() );
 <a class="jxr_linenumber" name="309" href="#309">309</a>                 getLog().debug( <span class="jxr_string">"Looking for include directory: "</span> + include );
 <a class="jxr_linenumber" name="310" href="#310">310</a>                 <strong class="jxr_keyword">if</strong> ( include.exists() )
 <a class="jxr_linenumber" name="311" href="#311">311</a>                 {
@@ -387,7 +387,7 @@
 <a class="jxr_linenumber" name="377" href="#377">377</a> 
 <a class="jxr_linenumber" name="378" href="#378">378</a>                     File dir =
 <a class="jxr_linenumber" name="379" href="#379">379</a>                         getLayout().getLibDirectory( unpackDirectory, dependency.getArtifactId(),
-<a class="jxr_linenumber" name="380" href="#380">380</a>                                                      dependency.getVersion(), aol.toString(), binding );
+<a class="jxr_linenumber" name="380" href="#380">380</a>                                                      dependency.getBaseVersion(), aol.toString(), binding );
 <a class="jxr_linenumber" name="381" href="#381">381</a> 
 <a class="jxr_linenumber" name="382" href="#382">382</a>                     getLog().debug(<span class="jxr_string">"Looking for Library Directory: "</span> + dir);
 <a class="jxr_linenumber" name="383" href="#383">383</a>                     <strong class="jxr_keyword">if</strong> ( dir.exists() )

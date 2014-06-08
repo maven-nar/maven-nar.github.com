@@ -144,7 +144,7 @@
 <a class="jxr_linenumber" name="134" href="#134">134</a>                     File narDir =
 <a class="jxr_linenumber" name="135" href="#135">135</a>                         <strong class="jxr_keyword">new</strong> File( dependency.getFile().getParentFile(), <span class="jxr_string">"nar/lib/"</span>
 <a class="jxr_linenumber" name="136" href="#136">136</a> 									+ mojo.getAOL() + <span class="jxr_string">"/"</span> + lib.type);
-<a class="jxr_linenumber" name="137" href="#137">137</a>                     String narName = dependency.getArtifactId() + <span class="jxr_string">"-"</span> + lib.name + <span class="jxr_string">"-"</span> + dependency.getVersion();
+<a class="jxr_linenumber" name="137" href="#137">137</a>                     String narName = dependency.getArtifactId() + <span class="jxr_string">"-"</span> + lib.name + <span class="jxr_string">"-"</span> + dependency.getBaseVersion();
 <a class="jxr_linenumber" name="138" href="#138">138</a> 					lib.addLibSet(mojo, linker, antProject, narName, narDir);
 <a class="jxr_linenumber" name="139" href="#139">139</a> 				}
 <a class="jxr_linenumber" name="140" href="#140">140</a> 			}

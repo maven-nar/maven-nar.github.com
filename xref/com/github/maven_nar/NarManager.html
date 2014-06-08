@@ -262,7 +262,7 @@
 <a class="jxr_linenumber" name="252" href="#252">252</a>                         {
 <a class="jxr_linenumber" name="253" href="#253">253</a>                             classifier = NarUtil.replace( <span class="jxr_string">"${aol}"</span>, aol.toString(), classifier );
 <a class="jxr_linenumber" name="254" href="#254">254</a>                         }
-<a class="jxr_linenumber" name="255" href="#255">255</a>                         String version = nar.length &gt;= 5 ? nar[4].trim() : dependency.getVersion();
+<a class="jxr_linenumber" name="255" href="#255">255</a>                         String version = nar.length &gt;= 5 ? nar[4].trim() : dependency.getBaseVersion();
 <a class="jxr_linenumber" name="256" href="#256">256</a>                         artifactList.add( <strong class="jxr_keyword">new</strong> AttachedNarArtifact( groupId, artifactId, version, dependency.getScope(),
 <a class="jxr_linenumber" name="257" href="#257">257</a>                                                                    ext, classifier, dependency.isOptional(), dependency.getFile() ));
 <a class="jxr_linenumber" name="258" href="#258">258</a>                     }
