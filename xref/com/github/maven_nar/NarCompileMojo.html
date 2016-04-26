@@ -269,10 +269,10 @@
 <a class="jxr_linenumber" name="259" href="#259">259</a>       <strong class="jxr_keyword">if</strong> (depLibOrder != <strong class="jxr_keyword">null</strong> &amp;&amp; !depLibOrder.isEmpty()) {
 <a class="jxr_linenumber" name="260" href="#260">260</a>         <strong class="jxr_keyword">final</strong> List tmp = <strong class="jxr_keyword">new</strong> LinkedList();
 <a class="jxr_linenumber" name="261" href="#261">261</a> 
-<a class="jxr_linenumber" name="262" href="#262">262</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> Iterator i = depLibOrder.iterator(); i.hasNext();) {
-<a class="jxr_linenumber" name="263" href="#263">263</a>           <strong class="jxr_keyword">final</strong> String depToOrderName = (String) i.next();
+<a class="jxr_linenumber" name="262" href="#262">262</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> Object aDepLibOrder : depLibOrder) {
+<a class="jxr_linenumber" name="263" href="#263">263</a>           <strong class="jxr_keyword">final</strong> String depToOrderName = (String) aDepLibOrder;
 <a class="jxr_linenumber" name="264" href="#264">264</a> 
-<a class="jxr_linenumber" name="265" href="#265">265</a>           <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> Iterator j = depLibs.iterator(); j.hasNext();) {
+<a class="jxr_linenumber" name="265" href="#265">265</a>           <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> Iterator j = depLibs.iterator(); j.hasNext(); ) {
 <a class="jxr_linenumber" name="266" href="#266">266</a>             <strong class="jxr_keyword">final</strong> <a href="../../../com/github/maven_nar/NarArtifact.html">NarArtifact</a> dep = (NarArtifact) j.next();
 <a class="jxr_linenumber" name="267" href="#267">267</a>             <strong class="jxr_keyword">final</strong> String depName = dep.getGroupId() + <span class="jxr_string">":"</span> + dep.getArtifactId();
 <a class="jxr_linenumber" name="268" href="#268">268</a> 
@@ -287,8 +287,8 @@
 <a class="jxr_linenumber" name="277" href="#277">277</a>         depLibs = tmp;
 <a class="jxr_linenumber" name="278" href="#278">278</a>       }
 <a class="jxr_linenumber" name="279" href="#279">279</a> 
-<a class="jxr_linenumber" name="280" href="#280">280</a>       <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> Iterator i = depLibs.iterator(); i.hasNext();) {
-<a class="jxr_linenumber" name="281" href="#281">281</a>         <strong class="jxr_keyword">final</strong> <a href="../../../com/github/maven_nar/NarArtifact.html">NarArtifact</a> dependency = (NarArtifact) i.next();
+<a class="jxr_linenumber" name="280" href="#280">280</a>       <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> Object depLib : depLibs) {
+<a class="jxr_linenumber" name="281" href="#281">281</a>         <strong class="jxr_keyword">final</strong> <a href="../../../com/github/maven_nar/NarArtifact.html">NarArtifact</a> dependency = (NarArtifact) depLib;
 <a class="jxr_linenumber" name="282" href="#282">282</a> 
 <a class="jxr_linenumber" name="283" href="#283">283</a>         <em class="jxr_comment">// FIXME no handling of "local"</em>
 <a class="jxr_linenumber" name="284" href="#284">284</a> 
@@ -302,194 +302,195 @@
 <a class="jxr_linenumber" name="292" href="#292">292</a>         <strong class="jxr_keyword">if</strong> (!binding.equals(Library.JNI) &amp;&amp; !binding.equals(Library.NONE) &amp;&amp; !binding.equals(Library.EXECUTABLE)) {
 <a class="jxr_linenumber" name="293" href="#293">293</a>           <strong class="jxr_keyword">final</strong> File unpackDirectory = getUnpackDirectory();
 <a class="jxr_linenumber" name="294" href="#294">294</a> 
-<a class="jxr_linenumber" name="295" href="#295">295</a>           <strong class="jxr_keyword">final</strong> File dir = getLayout().getLibDirectory(unpackDirectory, dependency.getArtifactId(),
-<a class="jxr_linenumber" name="296" href="#296">296</a>               dependency.getBaseVersion(), aol.toString(), binding);
-<a class="jxr_linenumber" name="297" href="#297">297</a> 
-<a class="jxr_linenumber" name="298" href="#298">298</a>           getLog().debug(<span class="jxr_string">"Looking for Library Directory: "</span> + dir);
-<a class="jxr_linenumber" name="299" href="#299">299</a>           <strong class="jxr_keyword">if</strong> (dir.exists()) {
-<a class="jxr_linenumber" name="300" href="#300">300</a>             <strong class="jxr_keyword">final</strong> <a href="../../../com/github/maven_nar/cpptasks/types/LibrarySet.html">LibrarySet</a> libSet = <strong class="jxr_keyword">new</strong> <a href="../../../com/github/maven_nar/cpptasks/types/LibrarySet.html">LibrarySet</a>();
-<a class="jxr_linenumber" name="301" href="#301">301</a>             libSet.setProject(antProject);
-<a class="jxr_linenumber" name="302" href="#302">302</a> 
-<a class="jxr_linenumber" name="303" href="#303">303</a>             <em class="jxr_comment">// FIXME, no way to override</em>
-<a class="jxr_linenumber" name="304" href="#304">304</a>             <strong class="jxr_keyword">final</strong> String libs = dependency.getNarInfo().getLibs(getAOL());
-<a class="jxr_linenumber" name="305" href="#305">305</a>             <strong class="jxr_keyword">if</strong> (libs != <strong class="jxr_keyword">null</strong> &amp;&amp; !libs.equals(<span class="jxr_string">""</span>)) {
-<a class="jxr_linenumber" name="306" href="#306">306</a>               getLog().debug(<span class="jxr_string">"Using LIBS = "</span> + libs);
-<a class="jxr_linenumber" name="307" href="#307">307</a>               libSet.setLibs(<strong class="jxr_keyword">new</strong> CUtil.StringArrayBuilder(libs));
-<a class="jxr_linenumber" name="308" href="#308">308</a>               libSet.setDir(dir);
-<a class="jxr_linenumber" name="309" href="#309">309</a>               task.addLibset(libSet);
-<a class="jxr_linenumber" name="310" href="#310">310</a>             }
-<a class="jxr_linenumber" name="311" href="#311">311</a>           } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="312" href="#312">312</a>             getLog().debug(<span class="jxr_string">"Library Directory "</span> + dir + <span class="jxr_string">" does NOT exist."</span>);
-<a class="jxr_linenumber" name="313" href="#313">313</a>           }
-<a class="jxr_linenumber" name="314" href="#314">314</a> 
-<a class="jxr_linenumber" name="315" href="#315">315</a>           <em class="jxr_comment">// FIXME, look again at this, for multiple dependencies we may need to</em>
-<a class="jxr_linenumber" name="316" href="#316">316</a>           <em class="jxr_comment">// remove duplicates</em>
-<a class="jxr_linenumber" name="317" href="#317">317</a>           <strong class="jxr_keyword">final</strong> String options = dependency.getNarInfo().getOptions(getAOL());
-<a class="jxr_linenumber" name="318" href="#318">318</a>           <strong class="jxr_keyword">if</strong> (options != <strong class="jxr_keyword">null</strong> &amp;&amp; !options.equals(<span class="jxr_string">""</span>)) {
-<a class="jxr_linenumber" name="319" href="#319">319</a>             getLog().debug(<span class="jxr_string">"Using OPTIONS = "</span> + options);
-<a class="jxr_linenumber" name="320" href="#320">320</a>             <strong class="jxr_keyword">final</strong> <a href="../../../com/github/maven_nar/cpptasks/types/LinkerArgument.html">LinkerArgument</a> arg = <strong class="jxr_keyword">new</strong> <a href="../../../com/github/maven_nar/cpptasks/types/LinkerArgument.html">LinkerArgument</a>();
-<a class="jxr_linenumber" name="321" href="#321">321</a>             arg.setValue(options);
-<a class="jxr_linenumber" name="322" href="#322">322</a>             linkerDefinition.addConfiguredLinkerArg(arg);
-<a class="jxr_linenumber" name="323" href="#323">323</a>           }
-<a class="jxr_linenumber" name="324" href="#324">324</a> 
-<a class="jxr_linenumber" name="325" href="#325">325</a>           <strong class="jxr_keyword">final</strong> String sysLibs = dependency.getNarInfo().getSysLibs(getAOL());
-<a class="jxr_linenumber" name="326" href="#326">326</a>           <strong class="jxr_keyword">if</strong> (sysLibs != <strong class="jxr_keyword">null</strong> &amp;&amp; !sysLibs.equals(<span class="jxr_string">""</span>)) {
-<a class="jxr_linenumber" name="327" href="#327">327</a>             getLog().debug(<span class="jxr_string">"Using SYSLIBS = "</span> + sysLibs);
-<a class="jxr_linenumber" name="328" href="#328">328</a>             <strong class="jxr_keyword">final</strong> <a href="../../../com/github/maven_nar/cpptasks/types/SystemLibrarySet.html">SystemLibrarySet</a> sysLibSet = <strong class="jxr_keyword">new</strong> <a href="../../../com/github/maven_nar/cpptasks/types/SystemLibrarySet.html">SystemLibrarySet</a>();
-<a class="jxr_linenumber" name="329" href="#329">329</a>             sysLibSet.setProject(antProject);
-<a class="jxr_linenumber" name="330" href="#330">330</a> 
-<a class="jxr_linenumber" name="331" href="#331">331</a>             sysLibSet.setLibs(<strong class="jxr_keyword">new</strong> CUtil.StringArrayBuilder(sysLibs));
-<a class="jxr_linenumber" name="332" href="#332">332</a>             task.addSyslibset(sysLibSet);
-<a class="jxr_linenumber" name="333" href="#333">333</a>           }
-<a class="jxr_linenumber" name="334" href="#334">334</a>         }
-<a class="jxr_linenumber" name="335" href="#335">335</a>       }
-<a class="jxr_linenumber" name="336" href="#336">336</a>     }
-<a class="jxr_linenumber" name="337" href="#337">337</a> 
-<a class="jxr_linenumber" name="338" href="#338">338</a>     <em class="jxr_comment">// Add JVM to linker</em>
-<a class="jxr_linenumber" name="339" href="#339">339</a>     getJava().addRuntime(task, getJavaHome(getAOL()), getOS(), getAOL().getKey() + <span class="jxr_string">".java."</span>);
-<a class="jxr_linenumber" name="340" href="#340">340</a> 
-<a class="jxr_linenumber" name="341" href="#341">341</a>     <em class="jxr_comment">// execute</em>
-<a class="jxr_linenumber" name="342" href="#342">342</a>     <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="343" href="#343">343</a>       task.execute();
-<a class="jxr_linenumber" name="344" href="#344">344</a>     } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> BuildException e) {
-<a class="jxr_linenumber" name="345" href="#345">345</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoExecutionException(<span class="jxr_string">"NAR: Compile failed"</span>, e);
-<a class="jxr_linenumber" name="346" href="#346">346</a>     }
-<a class="jxr_linenumber" name="347" href="#347">347</a> 
-<a class="jxr_linenumber" name="348" href="#348">348</a>     <em class="jxr_comment">// FIXME, this should be done in CPPTasks at some point</em>
-<a class="jxr_linenumber" name="349" href="#349">349</a>     <em class="jxr_comment">// getRuntime(getAOL()).equals("dynamic") &amp;&amp;</em>
-<a class="jxr_linenumber" name="350" href="#350">350</a>     <strong class="jxr_keyword">if</strong> ((isEmbedManifest() || getLinker().isGenerateManifest()) &amp;&amp; getOS().equals(OS.WINDOWS)
-<a class="jxr_linenumber" name="351" href="#351">351</a>         &amp;&amp; getLinker().getName().equals(<span class="jxr_string">"msvc"</span>) &amp;&amp; !getLinker().getVersion(<strong class="jxr_keyword">this</strong>).startsWith(<span class="jxr_string">"6."</span>)) {
-<a class="jxr_linenumber" name="352" href="#352">352</a>       <strong class="jxr_keyword">final</strong> String[] env = <strong class="jxr_keyword">new</strong> String[] {
-<a class="jxr_linenumber" name="353" href="#353">353</a>         <span class="jxr_string">"PATH="</span> + getMsvc().getPathVariable().getValue()
-<a class="jxr_linenumber" name="354" href="#354">354</a>       };
-<a class="jxr_linenumber" name="355" href="#355">355</a>       <strong class="jxr_keyword">final</strong> String libType = library.getType();
-<a class="jxr_linenumber" name="356" href="#356">356</a>       <strong class="jxr_keyword">if</strong> (Library.JNI.equals(libType) || Library.SHARED.equals(libType) || Library.EXECUTABLE.equals(libType)) {
-<a class="jxr_linenumber" name="357" href="#357">357</a>         Vector&lt;String&gt; commandlineArgs = <strong class="jxr_keyword">new</strong> Vector&lt;String&gt;();
-<a class="jxr_linenumber" name="358" href="#358">358</a>         commandlineArgs.add(<span class="jxr_string">"/manifest"</span>);
-<a class="jxr_linenumber" name="359" href="#359">359</a>         getManifests(outFile.getPath(), commandlineArgs);
-<a class="jxr_linenumber" name="360" href="#360">360</a>         <strong class="jxr_keyword">if</strong> (commandlineArgs.size() == 1) {
-<a class="jxr_linenumber" name="361" href="#361">361</a>           <strong class="jxr_keyword">if</strong> (isEmbedManifest())
-<a class="jxr_linenumber" name="362" href="#362">362</a>             getLog().warn(<span class="jxr_string">"Embed manifest requested, no source manifests to embed, no manifest generated"</span>);
-<a class="jxr_linenumber" name="363" href="#363">363</a>         } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="364" href="#364">364</a>           <strong class="jxr_keyword">if</strong> (Library.JNI.equals(libType) || Library.SHARED.equals(libType)) {
-<a class="jxr_linenumber" name="365" href="#365">365</a>             String dll = outFile.getPath() + <span class="jxr_string">".dll"</span>;
-<a class="jxr_linenumber" name="366" href="#366">366</a>             <strong class="jxr_keyword">if</strong> (isEmbedManifest()) {
-<a class="jxr_linenumber" name="367" href="#367">367</a>               commandlineArgs.add(<span class="jxr_string">"/outputresource:"</span> + dll + <span class="jxr_string">";#2"</span>);
-<a class="jxr_linenumber" name="368" href="#368">368</a>             } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="369" href="#369">369</a>               commandlineArgs.add(<span class="jxr_string">"/out:"</span> + dll + <span class="jxr_string">".manifest"</span>);
-<a class="jxr_linenumber" name="370" href="#370">370</a>             }
-<a class="jxr_linenumber" name="371" href="#371">371</a>           } <strong class="jxr_keyword">else</strong> <em class="jxr_comment">// if (Library.EXECUTABLE.equals( libType ))</em>
-<a class="jxr_linenumber" name="372" href="#372">372</a>           {
-<a class="jxr_linenumber" name="373" href="#373">373</a>             String exe = outFile.getPath() + <span class="jxr_string">".exe"</span>;
-<a class="jxr_linenumber" name="374" href="#374">374</a>             <strong class="jxr_keyword">if</strong> (isEmbedManifest()) {
-<a class="jxr_linenumber" name="375" href="#375">375</a>               commandlineArgs.add(<span class="jxr_string">"/outputresource:"</span> + exe + <span class="jxr_string">";#1"</span>);
-<a class="jxr_linenumber" name="376" href="#376">376</a>             } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="377" href="#377">377</a>               commandlineArgs.add(<span class="jxr_string">"/out:"</span> + exe + <span class="jxr_string">".manifest"</span>);
-<a class="jxr_linenumber" name="378" href="#378">378</a>             }
-<a class="jxr_linenumber" name="379" href="#379">379</a>           }
-<a class="jxr_linenumber" name="380" href="#380">380</a>           String[] commandlineArgsArray = commandlineArgs.toArray(<strong class="jxr_keyword">new</strong> String[0]);
-<a class="jxr_linenumber" name="381" href="#381">381</a>           String mtexe = <span class="jxr_string">"mt.exe"</span>;
-<a class="jxr_linenumber" name="382" href="#382">382</a>           <strong class="jxr_keyword">if</strong> (getMsvc().compareVersion( getMsvc().getWindowsSdkVersion(),<span class="jxr_string">"7.0"</span>)&lt;0 &amp;&amp; getLinker().getVersion(<strong class="jxr_keyword">this</strong>).startsWith(<span class="jxr_string">"8."</span>)) { <em class="jxr_comment">// VS2005 VC8 only one that includes mt.exe</em>
-<a class="jxr_linenumber" name="383" href="#383">383</a>             File mtexeFile = <strong class="jxr_keyword">new</strong> File(getMsvc().getToolPath(), mtexe);
-<a class="jxr_linenumber" name="384" href="#384">384</a>             <strong class="jxr_keyword">if</strong> (mtexeFile.exists())
-<a class="jxr_linenumber" name="385" href="#385">385</a>               mtexe = mtexeFile.getAbsolutePath();
-<a class="jxr_linenumber" name="386" href="#386">386</a>           } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="387" href="#387">387</a>             File mtexeFile = <strong class="jxr_keyword">new</strong> File(getMsvc().getSDKToolPath(), mtexe);
-<a class="jxr_linenumber" name="388" href="#388">388</a>             <strong class="jxr_keyword">if</strong> (mtexeFile.exists())
-<a class="jxr_linenumber" name="389" href="#389">389</a>               mtexe = mtexeFile.getAbsolutePath();
-<a class="jxr_linenumber" name="390" href="#390">390</a>           }
-<a class="jxr_linenumber" name="391" href="#391">391</a>           <strong class="jxr_keyword">int</strong> result = NarUtil.runCommand(mtexe, commandlineArgsArray, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, getLog());
-<a class="jxr_linenumber" name="392" href="#392">392</a>           <strong class="jxr_keyword">if</strong> (result != 0) {
-<a class="jxr_linenumber" name="393" href="#393">393</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoFailureException(<span class="jxr_string">"MT.EXE failed with exit code: "</span> + result);
-<a class="jxr_linenumber" name="394" href="#394">394</a>           }
-<a class="jxr_linenumber" name="395" href="#395">395</a>         }
-<a class="jxr_linenumber" name="396" href="#396">396</a>       }
-<a class="jxr_linenumber" name="397" href="#397">397</a>     }
-<a class="jxr_linenumber" name="398" href="#398">398</a>     <strong class="jxr_keyword">if</strong>( getOS().equals(OS.WINDOWS) &amp;&amp; Library.STATIC.equals(library.getType()) ){  <em class="jxr_comment">// option? should debug symbols always be provided.</em>
-<a class="jxr_linenumber" name="399" href="#399">399</a>       getLog().debug( <span class="jxr_string">"Copy static pdbs from intermediat dir to "</span> + task.getOutfile().getParentFile() );
-<a class="jxr_linenumber" name="400" href="#400">400</a>       <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="401" href="#401">401</a>         NarUtil.copyDirectoryStructure(task.getObjdir(), task.getOutfile().getParentFile(), <span class="jxr_string">"**/*.pdb"</span>, NarUtil.DEFAULT_EXCLUDES );
-<a class="jxr_linenumber" name="402" href="#402">402</a>       } <strong class="jxr_keyword">catch</strong> (IOException e) {
-<a class="jxr_linenumber" name="403" href="#403">403</a>         getLog().info( <span class="jxr_string">"Failed to copy pdbs from "</span> + task.getObjdir() + <span class="jxr_string">"\nexception"</span> + e.getMessage() );
-<a class="jxr_linenumber" name="404" href="#404">404</a>       }
-<a class="jxr_linenumber" name="405" href="#405">405</a>     }
-<a class="jxr_linenumber" name="406" href="#406">406</a>   }
-<a class="jxr_linenumber" name="407" href="#407">407</a> 
-<a class="jxr_linenumber" name="408" href="#408">408</a>   <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="409" href="#409">409</a> <em class="jxr_javadoccomment">   * List the dependencies needed for compilation, those dependencies are used</em>
-<a class="jxr_linenumber" name="410" href="#410">410</a> <em class="jxr_javadoccomment">   * to get the include paths needed for</em>
-<a class="jxr_linenumber" name="411" href="#411">411</a> <em class="jxr_javadoccomment">   * compilation and to get the libraries paths and names needed for linking.</em>
-<a class="jxr_linenumber" name="412" href="#412">412</a> <em class="jxr_javadoccomment">   */</em>
-<a class="jxr_linenumber" name="413" href="#413">413</a>   @Override
-<a class="jxr_linenumber" name="414" href="#414">414</a>   <strong class="jxr_keyword">protected</strong> ScopeFilter getArtifactScopeFilter() {
-<a class="jxr_linenumber" name="415" href="#415">415</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> ScopeFilter(Artifact.SCOPE_COMPILE, <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="416" href="#416">416</a>   }
-<a class="jxr_linenumber" name="417" href="#417">417</a> 
-<a class="jxr_linenumber" name="418" href="#418">418</a>   <strong class="jxr_keyword">private</strong> List getSourcesFor(<strong class="jxr_keyword">final</strong> <a href="../../../com/github/maven_nar/Compiler.html">Compiler</a> compiler) <strong class="jxr_keyword">throws</strong> MojoFailureException, MojoExecutionException {
-<a class="jxr_linenumber" name="419" href="#419">419</a>     <strong class="jxr_keyword">if</strong> (compiler == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="420" href="#420">420</a>       <strong class="jxr_keyword">return</strong> Collections.emptyList();
-<a class="jxr_linenumber" name="421" href="#421">421</a>     }
-<a class="jxr_linenumber" name="422" href="#422">422</a> 
-<a class="jxr_linenumber" name="423" href="#423">423</a>     <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="424" href="#424">424</a>       <strong class="jxr_keyword">final</strong> List files = <strong class="jxr_keyword">new</strong> ArrayList();
-<a class="jxr_linenumber" name="425" href="#425">425</a>       <strong class="jxr_keyword">final</strong> List srcDirs = compiler.getSourceDirectories();
-<a class="jxr_linenumber" name="426" href="#426">426</a>       <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> Iterator i = srcDirs.iterator(); i.hasNext();) {
-<a class="jxr_linenumber" name="427" href="#427">427</a>         <strong class="jxr_keyword">final</strong> File dir = (File) i.next();
-<a class="jxr_linenumber" name="428" href="#428">428</a>         <strong class="jxr_keyword">if</strong> (dir.exists()) {
-<a class="jxr_linenumber" name="429" href="#429">429</a>           files.addAll(FileUtils.getFiles(dir, StringUtils.join(compiler.getIncludes().iterator(), <span class="jxr_string">","</span>), <strong class="jxr_keyword">null</strong>));
-<a class="jxr_linenumber" name="430" href="#430">430</a>         }
-<a class="jxr_linenumber" name="431" href="#431">431</a>       }
-<a class="jxr_linenumber" name="432" href="#432">432</a>       <strong class="jxr_keyword">return</strong> files;
-<a class="jxr_linenumber" name="433" href="#433">433</a>     } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> IOException e) {
-<a class="jxr_linenumber" name="434" href="#434">434</a>       <strong class="jxr_keyword">return</strong> Collections.emptyList();
-<a class="jxr_linenumber" name="435" href="#435">435</a>     }
-<a class="jxr_linenumber" name="436" href="#436">436</a>   }
-<a class="jxr_linenumber" name="437" href="#437">437</a> 
-<a class="jxr_linenumber" name="438" href="#438">438</a>   @Override
-<a class="jxr_linenumber" name="439" href="#439">439</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> narExecute() <strong class="jxr_keyword">throws</strong> MojoExecutionException, MojoFailureException {
-<a class="jxr_linenumber" name="440" href="#440">440</a> 
-<a class="jxr_linenumber" name="441" href="#441">441</a>     <em class="jxr_comment">// make sure destination is there</em>
-<a class="jxr_linenumber" name="442" href="#442">442</a>     getTargetDirectory().mkdirs();
-<a class="jxr_linenumber" name="443" href="#443">443</a> 
-<a class="jxr_linenumber" name="444" href="#444">444</a>     <em class="jxr_comment">// check for source files</em>
-<a class="jxr_linenumber" name="445" href="#445">445</a>     <strong class="jxr_keyword">int</strong> noOfSources = 0;
-<a class="jxr_linenumber" name="446" href="#446">446</a>     noOfSources += getSourcesFor(getCpp()).size();
-<a class="jxr_linenumber" name="447" href="#447">447</a>     noOfSources += getSourcesFor(getC()).size();
-<a class="jxr_linenumber" name="448" href="#448">448</a>     noOfSources += getSourcesFor(getFortran()).size();
-<a class="jxr_linenumber" name="449" href="#449">449</a>     <strong class="jxr_keyword">if</strong> (noOfSources &gt; 0) {
-<a class="jxr_linenumber" name="450" href="#450">450</a>       getLog().info(<span class="jxr_string">"Compiling "</span> + noOfSources + <span class="jxr_string">" native files"</span>);
-<a class="jxr_linenumber" name="451" href="#451">451</a>       <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> Library library : getLibraries()) {
-<a class="jxr_linenumber" name="452" href="#452">452</a>         createLibrary(getAntProject(), library);
-<a class="jxr_linenumber" name="453" href="#453">453</a>       }
-<a class="jxr_linenumber" name="454" href="#454">454</a>     } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="455" href="#455">455</a>       getLog().info(<span class="jxr_string">"Nothing to compile"</span>);
-<a class="jxr_linenumber" name="456" href="#456">456</a>     }
-<a class="jxr_linenumber" name="457" href="#457">457</a> 
-<a class="jxr_linenumber" name="458" href="#458">458</a>     <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="459" href="#459">459</a>       <em class="jxr_comment">// FIXME, should the include paths be defined at a higher level ?</em>
-<a class="jxr_linenumber" name="460" href="#460">460</a>       copyInclude(getCpp());
-<a class="jxr_linenumber" name="461" href="#461">461</a>       copyInclude(getC());
-<a class="jxr_linenumber" name="462" href="#462">462</a>       copyInclude(getFortran());
-<a class="jxr_linenumber" name="463" href="#463">463</a>     } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> IOException e) {
-<a class="jxr_linenumber" name="464" href="#464">464</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoExecutionException(<span class="jxr_string">"NAR: could not copy include files"</span>, e);
-<a class="jxr_linenumber" name="465" href="#465">465</a>     }
-<a class="jxr_linenumber" name="466" href="#466">466</a> 
-<a class="jxr_linenumber" name="467" href="#467">467</a>     getNarInfo().writeToDirectory(<strong class="jxr_keyword">this</strong>.classesDirectory);
-<a class="jxr_linenumber" name="468" href="#468">468</a>   }
-<a class="jxr_linenumber" name="469" href="#469">469</a> 
-<a class="jxr_linenumber" name="470" href="#470">470</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isEmbedManifest() {
-<a class="jxr_linenumber" name="471" href="#471">471</a>     <strong class="jxr_keyword">return</strong> embedManifest;
-<a class="jxr_linenumber" name="472" href="#472">472</a>   }
-<a class="jxr_linenumber" name="473" href="#473">473</a> 
-<a class="jxr_linenumber" name="474" href="#474">474</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> getManifests(String generated, Vector&lt;String&gt; manifests) {
-<a class="jxr_linenumber" name="475" href="#475">475</a>     <em class="jxr_comment">// TODO: /manifest should be followed by the list of manifest files</em>
-<a class="jxr_linenumber" name="476" href="#476">476</a>     <em class="jxr_comment">// - the one generated by link, any others provided in source.</em>
-<a class="jxr_linenumber" name="477" href="#477">477</a>     <em class="jxr_comment">// search the source for .manifest files.</em>
-<a class="jxr_linenumber" name="478" href="#478">478</a>     <strong class="jxr_keyword">if</strong> (getLinker().isGenerateManifest())
-<a class="jxr_linenumber" name="479" href="#479">479</a>       manifests.add(generated + <span class="jxr_string">".manifest"</span>);
-<a class="jxr_linenumber" name="480" href="#480">480</a>   }
-<a class="jxr_linenumber" name="481" href="#481">481</a> 
-<a class="jxr_linenumber" name="482" href="#482">482</a> }
+<a class="jxr_linenumber" name="295" href="#295">295</a>           <strong class="jxr_keyword">final</strong> File dir = getLayout()
+<a class="jxr_linenumber" name="296" href="#296">296</a>               .getLibDirectory(unpackDirectory, dependency.getArtifactId(), dependency.getBaseVersion(), aol.toString(),
+<a class="jxr_linenumber" name="297" href="#297">297</a>                   binding);
+<a class="jxr_linenumber" name="298" href="#298">298</a> 
+<a class="jxr_linenumber" name="299" href="#299">299</a>           getLog().debug(<span class="jxr_string">"Looking for Library Directory: "</span> + dir);
+<a class="jxr_linenumber" name="300" href="#300">300</a>           <strong class="jxr_keyword">if</strong> (dir.exists()) {
+<a class="jxr_linenumber" name="301" href="#301">301</a>             <strong class="jxr_keyword">final</strong> <a href="../../../com/github/maven_nar/cpptasks/types/LibrarySet.html">LibrarySet</a> libSet = <strong class="jxr_keyword">new</strong> <a href="../../../com/github/maven_nar/cpptasks/types/LibrarySet.html">LibrarySet</a>();
+<a class="jxr_linenumber" name="302" href="#302">302</a>             libSet.setProject(antProject);
+<a class="jxr_linenumber" name="303" href="#303">303</a> 
+<a class="jxr_linenumber" name="304" href="#304">304</a>             <em class="jxr_comment">// FIXME, no way to override</em>
+<a class="jxr_linenumber" name="305" href="#305">305</a>             <strong class="jxr_keyword">final</strong> String libs = dependency.getNarInfo().getLibs(getAOL());
+<a class="jxr_linenumber" name="306" href="#306">306</a>             <strong class="jxr_keyword">if</strong> (libs != <strong class="jxr_keyword">null</strong> &amp;&amp; !libs.equals(<span class="jxr_string">""</span>)) {
+<a class="jxr_linenumber" name="307" href="#307">307</a>               getLog().debug(<span class="jxr_string">"Using LIBS = "</span> + libs);
+<a class="jxr_linenumber" name="308" href="#308">308</a>               libSet.setLibs(<strong class="jxr_keyword">new</strong> CUtil.StringArrayBuilder(libs));
+<a class="jxr_linenumber" name="309" href="#309">309</a>               libSet.setDir(dir);
+<a class="jxr_linenumber" name="310" href="#310">310</a>               task.addLibset(libSet);
+<a class="jxr_linenumber" name="311" href="#311">311</a>             }
+<a class="jxr_linenumber" name="312" href="#312">312</a>           } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="313" href="#313">313</a>             getLog().debug(<span class="jxr_string">"Library Directory "</span> + dir + <span class="jxr_string">" does NOT exist."</span>);
+<a class="jxr_linenumber" name="314" href="#314">314</a>           }
+<a class="jxr_linenumber" name="315" href="#315">315</a> 
+<a class="jxr_linenumber" name="316" href="#316">316</a>           <em class="jxr_comment">// FIXME, look again at this, for multiple dependencies we may need to</em>
+<a class="jxr_linenumber" name="317" href="#317">317</a>           <em class="jxr_comment">// remove duplicates</em>
+<a class="jxr_linenumber" name="318" href="#318">318</a>           <strong class="jxr_keyword">final</strong> String options = dependency.getNarInfo().getOptions(getAOL());
+<a class="jxr_linenumber" name="319" href="#319">319</a>           <strong class="jxr_keyword">if</strong> (options != <strong class="jxr_keyword">null</strong> &amp;&amp; !options.equals(<span class="jxr_string">""</span>)) {
+<a class="jxr_linenumber" name="320" href="#320">320</a>             getLog().debug(<span class="jxr_string">"Using OPTIONS = "</span> + options);
+<a class="jxr_linenumber" name="321" href="#321">321</a>             <strong class="jxr_keyword">final</strong> <a href="../../../com/github/maven_nar/cpptasks/types/LinkerArgument.html">LinkerArgument</a> arg = <strong class="jxr_keyword">new</strong> <a href="../../../com/github/maven_nar/cpptasks/types/LinkerArgument.html">LinkerArgument</a>();
+<a class="jxr_linenumber" name="322" href="#322">322</a>             arg.setValue(options);
+<a class="jxr_linenumber" name="323" href="#323">323</a>             linkerDefinition.addConfiguredLinkerArg(arg);
+<a class="jxr_linenumber" name="324" href="#324">324</a>           }
+<a class="jxr_linenumber" name="325" href="#325">325</a> 
+<a class="jxr_linenumber" name="326" href="#326">326</a>           <strong class="jxr_keyword">final</strong> String sysLibs = dependency.getNarInfo().getSysLibs(getAOL());
+<a class="jxr_linenumber" name="327" href="#327">327</a>           <strong class="jxr_keyword">if</strong> (sysLibs != <strong class="jxr_keyword">null</strong> &amp;&amp; !sysLibs.equals(<span class="jxr_string">""</span>)) {
+<a class="jxr_linenumber" name="328" href="#328">328</a>             getLog().debug(<span class="jxr_string">"Using SYSLIBS = "</span> + sysLibs);
+<a class="jxr_linenumber" name="329" href="#329">329</a>             <strong class="jxr_keyword">final</strong> <a href="../../../com/github/maven_nar/cpptasks/types/SystemLibrarySet.html">SystemLibrarySet</a> sysLibSet = <strong class="jxr_keyword">new</strong> <a href="../../../com/github/maven_nar/cpptasks/types/SystemLibrarySet.html">SystemLibrarySet</a>();
+<a class="jxr_linenumber" name="330" href="#330">330</a>             sysLibSet.setProject(antProject);
+<a class="jxr_linenumber" name="331" href="#331">331</a> 
+<a class="jxr_linenumber" name="332" href="#332">332</a>             sysLibSet.setLibs(<strong class="jxr_keyword">new</strong> CUtil.StringArrayBuilder(sysLibs));
+<a class="jxr_linenumber" name="333" href="#333">333</a>             task.addSyslibset(sysLibSet);
+<a class="jxr_linenumber" name="334" href="#334">334</a>           }
+<a class="jxr_linenumber" name="335" href="#335">335</a>         }
+<a class="jxr_linenumber" name="336" href="#336">336</a>       }
+<a class="jxr_linenumber" name="337" href="#337">337</a>     }
+<a class="jxr_linenumber" name="338" href="#338">338</a> 
+<a class="jxr_linenumber" name="339" href="#339">339</a>     <em class="jxr_comment">// Add JVM to linker</em>
+<a class="jxr_linenumber" name="340" href="#340">340</a>     getJava().addRuntime(task, getJavaHome(getAOL()), getOS(), getAOL().getKey() + <span class="jxr_string">".java."</span>);
+<a class="jxr_linenumber" name="341" href="#341">341</a> 
+<a class="jxr_linenumber" name="342" href="#342">342</a>     <em class="jxr_comment">// execute</em>
+<a class="jxr_linenumber" name="343" href="#343">343</a>     <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="344" href="#344">344</a>       task.execute();
+<a class="jxr_linenumber" name="345" href="#345">345</a>     } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> BuildException e) {
+<a class="jxr_linenumber" name="346" href="#346">346</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoExecutionException(<span class="jxr_string">"NAR: Compile failed"</span>, e);
+<a class="jxr_linenumber" name="347" href="#347">347</a>     }
+<a class="jxr_linenumber" name="348" href="#348">348</a> 
+<a class="jxr_linenumber" name="349" href="#349">349</a>     <em class="jxr_comment">// FIXME, this should be done in CPPTasks at some point</em>
+<a class="jxr_linenumber" name="350" href="#350">350</a>     <em class="jxr_comment">// getRuntime(getAOL()).equals("dynamic") &amp;&amp;</em>
+<a class="jxr_linenumber" name="351" href="#351">351</a>     <strong class="jxr_keyword">if</strong> ((isEmbedManifest() || getLinker().isGenerateManifest()) &amp;&amp; getOS().equals(OS.WINDOWS)
+<a class="jxr_linenumber" name="352" href="#352">352</a>         &amp;&amp; getLinker().getName().equals(<span class="jxr_string">"msvc"</span>) &amp;&amp; !getLinker().getVersion(<strong class="jxr_keyword">this</strong>).startsWith(<span class="jxr_string">"6."</span>)) {
+<a class="jxr_linenumber" name="353" href="#353">353</a>       <strong class="jxr_keyword">final</strong> String[] env = <strong class="jxr_keyword">new</strong> String[] {
+<a class="jxr_linenumber" name="354" href="#354">354</a>         <span class="jxr_string">"PATH="</span> + getMsvc().getPathVariable().getValue()
+<a class="jxr_linenumber" name="355" href="#355">355</a>       };
+<a class="jxr_linenumber" name="356" href="#356">356</a>       <strong class="jxr_keyword">final</strong> String libType = library.getType();
+<a class="jxr_linenumber" name="357" href="#357">357</a>       <strong class="jxr_keyword">if</strong> (Library.JNI.equals(libType) || Library.SHARED.equals(libType) || Library.EXECUTABLE.equals(libType)) {
+<a class="jxr_linenumber" name="358" href="#358">358</a>         Vector&lt;String&gt; commandlineArgs = <strong class="jxr_keyword">new</strong> Vector&lt;&gt;();
+<a class="jxr_linenumber" name="359" href="#359">359</a>         commandlineArgs.add(<span class="jxr_string">"/manifest"</span>);
+<a class="jxr_linenumber" name="360" href="#360">360</a>         getManifests(outFile.getPath(), commandlineArgs);
+<a class="jxr_linenumber" name="361" href="#361">361</a>         <strong class="jxr_keyword">if</strong> (commandlineArgs.size() == 1) {
+<a class="jxr_linenumber" name="362" href="#362">362</a>           <strong class="jxr_keyword">if</strong> (isEmbedManifest())
+<a class="jxr_linenumber" name="363" href="#363">363</a>             getLog().warn(<span class="jxr_string">"Embed manifest requested, no source manifests to embed, no manifest generated"</span>);
+<a class="jxr_linenumber" name="364" href="#364">364</a>         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="365" href="#365">365</a>           <strong class="jxr_keyword">if</strong> (Library.JNI.equals(libType) || Library.SHARED.equals(libType)) {
+<a class="jxr_linenumber" name="366" href="#366">366</a>             String dll = outFile.getPath() + <span class="jxr_string">".dll"</span>;
+<a class="jxr_linenumber" name="367" href="#367">367</a>             <strong class="jxr_keyword">if</strong> (isEmbedManifest()) {
+<a class="jxr_linenumber" name="368" href="#368">368</a>               commandlineArgs.add(<span class="jxr_string">"/outputresource:"</span> + dll + <span class="jxr_string">";#2"</span>);
+<a class="jxr_linenumber" name="369" href="#369">369</a>             } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="370" href="#370">370</a>               commandlineArgs.add(<span class="jxr_string">"/out:"</span> + dll + <span class="jxr_string">".manifest"</span>);
+<a class="jxr_linenumber" name="371" href="#371">371</a>             }
+<a class="jxr_linenumber" name="372" href="#372">372</a>           } <strong class="jxr_keyword">else</strong> <em class="jxr_comment">// if (Library.EXECUTABLE.equals( libType ))</em>
+<a class="jxr_linenumber" name="373" href="#373">373</a>           {
+<a class="jxr_linenumber" name="374" href="#374">374</a>             String exe = outFile.getPath() + <span class="jxr_string">".exe"</span>;
+<a class="jxr_linenumber" name="375" href="#375">375</a>             <strong class="jxr_keyword">if</strong> (isEmbedManifest()) {
+<a class="jxr_linenumber" name="376" href="#376">376</a>               commandlineArgs.add(<span class="jxr_string">"/outputresource:"</span> + exe + <span class="jxr_string">";#1"</span>);
+<a class="jxr_linenumber" name="377" href="#377">377</a>             } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="378" href="#378">378</a>               commandlineArgs.add(<span class="jxr_string">"/out:"</span> + exe + <span class="jxr_string">".manifest"</span>);
+<a class="jxr_linenumber" name="379" href="#379">379</a>             }
+<a class="jxr_linenumber" name="380" href="#380">380</a>           }
+<a class="jxr_linenumber" name="381" href="#381">381</a>           String[] commandlineArgsArray = commandlineArgs.toArray(<strong class="jxr_keyword">new</strong> String[0]);
+<a class="jxr_linenumber" name="382" href="#382">382</a>           String mtexe = <span class="jxr_string">"mt.exe"</span>;
+<a class="jxr_linenumber" name="383" href="#383">383</a>           <strong class="jxr_keyword">if</strong> (getMsvc().compareVersion( getMsvc().getWindowsSdkVersion(),<span class="jxr_string">"7.0"</span>)&lt;0 &amp;&amp; getLinker().getVersion(<strong class="jxr_keyword">this</strong>).startsWith(<span class="jxr_string">"8."</span>)) { <em class="jxr_comment">// VS2005 VC8 only one that includes mt.exe</em>
+<a class="jxr_linenumber" name="384" href="#384">384</a>             File mtexeFile = <strong class="jxr_keyword">new</strong> File(getMsvc().getToolPath(), mtexe);
+<a class="jxr_linenumber" name="385" href="#385">385</a>             <strong class="jxr_keyword">if</strong> (mtexeFile.exists())
+<a class="jxr_linenumber" name="386" href="#386">386</a>               mtexe = mtexeFile.getAbsolutePath();
+<a class="jxr_linenumber" name="387" href="#387">387</a>           } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="388" href="#388">388</a>             File mtexeFile = <strong class="jxr_keyword">new</strong> File(getMsvc().getSDKToolPath(), mtexe);
+<a class="jxr_linenumber" name="389" href="#389">389</a>             <strong class="jxr_keyword">if</strong> (mtexeFile.exists())
+<a class="jxr_linenumber" name="390" href="#390">390</a>               mtexe = mtexeFile.getAbsolutePath();
+<a class="jxr_linenumber" name="391" href="#391">391</a>           }
+<a class="jxr_linenumber" name="392" href="#392">392</a>           <strong class="jxr_keyword">int</strong> result = NarUtil.runCommand(mtexe, commandlineArgsArray, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, getLog());
+<a class="jxr_linenumber" name="393" href="#393">393</a>           <strong class="jxr_keyword">if</strong> (result != 0) {
+<a class="jxr_linenumber" name="394" href="#394">394</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoFailureException(<span class="jxr_string">"MT.EXE failed with exit code: "</span> + result);
+<a class="jxr_linenumber" name="395" href="#395">395</a>           }
+<a class="jxr_linenumber" name="396" href="#396">396</a>         }
+<a class="jxr_linenumber" name="397" href="#397">397</a>       }
+<a class="jxr_linenumber" name="398" href="#398">398</a>     }
+<a class="jxr_linenumber" name="399" href="#399">399</a>     <strong class="jxr_keyword">if</strong>( getOS().equals(OS.WINDOWS) &amp;&amp; Library.STATIC.equals(library.getType()) ){  <em class="jxr_comment">// option? should debug symbols always be provided.</em>
+<a class="jxr_linenumber" name="400" href="#400">400</a>       getLog().debug( <span class="jxr_string">"Copy static pdbs from intermediat dir to "</span> + task.getOutfile().getParentFile() );
+<a class="jxr_linenumber" name="401" href="#401">401</a>       <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="402" href="#402">402</a>         NarUtil.copyDirectoryStructure(task.getObjdir(), task.getOutfile().getParentFile(), <span class="jxr_string">"**/*.pdb"</span>, NarUtil.DEFAULT_EXCLUDES );
+<a class="jxr_linenumber" name="403" href="#403">403</a>       } <strong class="jxr_keyword">catch</strong> (IOException e) {
+<a class="jxr_linenumber" name="404" href="#404">404</a>         getLog().info( <span class="jxr_string">"Failed to copy pdbs from "</span> + task.getObjdir() + <span class="jxr_string">"\nexception"</span> + e.getMessage() );
+<a class="jxr_linenumber" name="405" href="#405">405</a>       }
+<a class="jxr_linenumber" name="406" href="#406">406</a>     }
+<a class="jxr_linenumber" name="407" href="#407">407</a>   }
+<a class="jxr_linenumber" name="408" href="#408">408</a> 
+<a class="jxr_linenumber" name="409" href="#409">409</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="410" href="#410">410</a> <em class="jxr_javadoccomment">   * List the dependencies needed for compilation, those dependencies are used</em>
+<a class="jxr_linenumber" name="411" href="#411">411</a> <em class="jxr_javadoccomment">   * to get the include paths needed for</em>
+<a class="jxr_linenumber" name="412" href="#412">412</a> <em class="jxr_javadoccomment">   * compilation and to get the libraries paths and names needed for linking.</em>
+<a class="jxr_linenumber" name="413" href="#413">413</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="414" href="#414">414</a>   @Override
+<a class="jxr_linenumber" name="415" href="#415">415</a>   <strong class="jxr_keyword">protected</strong> ScopeFilter getArtifactScopeFilter() {
+<a class="jxr_linenumber" name="416" href="#416">416</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> ScopeFilter(Artifact.SCOPE_COMPILE, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="417" href="#417">417</a>   }
+<a class="jxr_linenumber" name="418" href="#418">418</a> 
+<a class="jxr_linenumber" name="419" href="#419">419</a>   <strong class="jxr_keyword">private</strong> List getSourcesFor(<strong class="jxr_keyword">final</strong> <a href="../../../com/github/maven_nar/Compiler.html">Compiler</a> compiler) <strong class="jxr_keyword">throws</strong> MojoFailureException, MojoExecutionException {
+<a class="jxr_linenumber" name="420" href="#420">420</a>     <strong class="jxr_keyword">if</strong> (compiler == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="421" href="#421">421</a>       <strong class="jxr_keyword">return</strong> Collections.emptyList();
+<a class="jxr_linenumber" name="422" href="#422">422</a>     }
+<a class="jxr_linenumber" name="423" href="#423">423</a> 
+<a class="jxr_linenumber" name="424" href="#424">424</a>     <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="425" href="#425">425</a>       <strong class="jxr_keyword">final</strong> List files = <strong class="jxr_keyword">new</strong> ArrayList();
+<a class="jxr_linenumber" name="426" href="#426">426</a>       <strong class="jxr_keyword">final</strong> List srcDirs = compiler.getSourceDirectories();
+<a class="jxr_linenumber" name="427" href="#427">427</a>       <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> Object srcDir : srcDirs) {
+<a class="jxr_linenumber" name="428" href="#428">428</a>         <strong class="jxr_keyword">final</strong> File dir = (File) srcDir;
+<a class="jxr_linenumber" name="429" href="#429">429</a>         <strong class="jxr_keyword">if</strong> (dir.exists()) {
+<a class="jxr_linenumber" name="430" href="#430">430</a>           files.addAll(FileUtils.getFiles(dir, StringUtils.join(compiler.getIncludes().iterator(), <span class="jxr_string">","</span>), <strong class="jxr_keyword">null</strong>));
+<a class="jxr_linenumber" name="431" href="#431">431</a>         }
+<a class="jxr_linenumber" name="432" href="#432">432</a>       }
+<a class="jxr_linenumber" name="433" href="#433">433</a>       <strong class="jxr_keyword">return</strong> files;
+<a class="jxr_linenumber" name="434" href="#434">434</a>     } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> IOException e) {
+<a class="jxr_linenumber" name="435" href="#435">435</a>       <strong class="jxr_keyword">return</strong> Collections.emptyList();
+<a class="jxr_linenumber" name="436" href="#436">436</a>     }
+<a class="jxr_linenumber" name="437" href="#437">437</a>   }
+<a class="jxr_linenumber" name="438" href="#438">438</a> 
+<a class="jxr_linenumber" name="439" href="#439">439</a>   @Override
+<a class="jxr_linenumber" name="440" href="#440">440</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> narExecute() <strong class="jxr_keyword">throws</strong> MojoExecutionException, MojoFailureException {
+<a class="jxr_linenumber" name="441" href="#441">441</a> 
+<a class="jxr_linenumber" name="442" href="#442">442</a>     <em class="jxr_comment">// make sure destination is there</em>
+<a class="jxr_linenumber" name="443" href="#443">443</a>     getTargetDirectory().mkdirs();
+<a class="jxr_linenumber" name="444" href="#444">444</a> 
+<a class="jxr_linenumber" name="445" href="#445">445</a>     <em class="jxr_comment">// check for source files</em>
+<a class="jxr_linenumber" name="446" href="#446">446</a>     <strong class="jxr_keyword">int</strong> noOfSources = 0;
+<a class="jxr_linenumber" name="447" href="#447">447</a>     noOfSources += getSourcesFor(getCpp()).size();
+<a class="jxr_linenumber" name="448" href="#448">448</a>     noOfSources += getSourcesFor(getC()).size();
+<a class="jxr_linenumber" name="449" href="#449">449</a>     noOfSources += getSourcesFor(getFortran()).size();
+<a class="jxr_linenumber" name="450" href="#450">450</a>     <strong class="jxr_keyword">if</strong> (noOfSources &gt; 0) {
+<a class="jxr_linenumber" name="451" href="#451">451</a>       getLog().info(<span class="jxr_string">"Compiling "</span> + noOfSources + <span class="jxr_string">" native files"</span>);
+<a class="jxr_linenumber" name="452" href="#452">452</a>       <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> Library library : getLibraries()) {
+<a class="jxr_linenumber" name="453" href="#453">453</a>         createLibrary(getAntProject(), library);
+<a class="jxr_linenumber" name="454" href="#454">454</a>       }
+<a class="jxr_linenumber" name="455" href="#455">455</a>     } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="456" href="#456">456</a>       getLog().info(<span class="jxr_string">"Nothing to compile"</span>);
+<a class="jxr_linenumber" name="457" href="#457">457</a>     }
+<a class="jxr_linenumber" name="458" href="#458">458</a> 
+<a class="jxr_linenumber" name="459" href="#459">459</a>     <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="460" href="#460">460</a>       <em class="jxr_comment">// FIXME, should the include paths be defined at a higher level ?</em>
+<a class="jxr_linenumber" name="461" href="#461">461</a>       copyInclude(getCpp());
+<a class="jxr_linenumber" name="462" href="#462">462</a>       copyInclude(getC());
+<a class="jxr_linenumber" name="463" href="#463">463</a>       copyInclude(getFortran());
+<a class="jxr_linenumber" name="464" href="#464">464</a>     } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> IOException e) {
+<a class="jxr_linenumber" name="465" href="#465">465</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoExecutionException(<span class="jxr_string">"NAR: could not copy include files"</span>, e);
+<a class="jxr_linenumber" name="466" href="#466">466</a>     }
+<a class="jxr_linenumber" name="467" href="#467">467</a> 
+<a class="jxr_linenumber" name="468" href="#468">468</a>     getNarInfo().writeToDirectory(<strong class="jxr_keyword">this</strong>.classesDirectory);
+<a class="jxr_linenumber" name="469" href="#469">469</a>   }
+<a class="jxr_linenumber" name="470" href="#470">470</a> 
+<a class="jxr_linenumber" name="471" href="#471">471</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isEmbedManifest() {
+<a class="jxr_linenumber" name="472" href="#472">472</a>     <strong class="jxr_keyword">return</strong> embedManifest;
+<a class="jxr_linenumber" name="473" href="#473">473</a>   }
+<a class="jxr_linenumber" name="474" href="#474">474</a> 
+<a class="jxr_linenumber" name="475" href="#475">475</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> getManifests(String generated, Vector&lt;String&gt; manifests) {
+<a class="jxr_linenumber" name="476" href="#476">476</a>     <em class="jxr_comment">// TODO: /manifest should be followed by the list of manifest files</em>
+<a class="jxr_linenumber" name="477" href="#477">477</a>     <em class="jxr_comment">// - the one generated by link, any others provided in source.</em>
+<a class="jxr_linenumber" name="478" href="#478">478</a>     <em class="jxr_comment">// search the source for .manifest files.</em>
+<a class="jxr_linenumber" name="479" href="#479">479</a>     <strong class="jxr_keyword">if</strong> (getLinker().isGenerateManifest())
+<a class="jxr_linenumber" name="480" href="#480">480</a>       manifests.add(generated + <span class="jxr_string">".manifest"</span>);
+<a class="jxr_linenumber" name="481" href="#481">481</a>   }
+<a class="jxr_linenumber" name="482" href="#482">482</a> 
+<a class="jxr_linenumber" name="483" href="#483">483</a> }
 </pre>
 <hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
 </html>

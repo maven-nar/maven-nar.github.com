@@ -216,7 +216,7 @@
 <a class="jxr_linenumber" name="206" href="#206">206</a>       <strong class="jxr_keyword">final</strong> String[] sourceFiles, <strong class="jxr_keyword">final</strong> <a href="../../../../../com/github/maven_nar/cpptasks/compiler/CommandLineLinkerConfiguration.html">CommandLineLinkerConfiguration</a> config) {
 <a class="jxr_linenumber" name="207" href="#207">207</a>     <strong class="jxr_keyword">final</strong> String[] preargs = config.getPreArguments();
 <a class="jxr_linenumber" name="208" href="#208">208</a>     <strong class="jxr_keyword">final</strong> String[] endargs = config.getEndArguments();
-<a class="jxr_linenumber" name="209" href="#209">209</a>     <strong class="jxr_keyword">final</strong> Vector&lt;String&gt; execArgs = <strong class="jxr_keyword">new</strong> Vector&lt;String&gt;(preargs.length + endargs.length + 10 + sourceFiles.length);
+<a class="jxr_linenumber" name="209" href="#209">209</a>     <strong class="jxr_keyword">final</strong> Vector&lt;String&gt; execArgs = <strong class="jxr_keyword">new</strong> Vector&lt;&gt;(preargs.length + endargs.length + 10 + sourceFiles.length);
 <a class="jxr_linenumber" name="210" href="#210">210</a>     execArgs.addElement(<strong class="jxr_keyword">this</strong>.getCommand());
 <a class="jxr_linenumber" name="211" href="#211">211</a>     <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> String prearg : preargs) {
 <a class="jxr_linenumber" name="212" href="#212">212</a>       execArgs.addElement(prearg);
@@ -242,8 +242,8 @@
 <a class="jxr_linenumber" name="232" href="#232">232</a>       startup = config.getStartupObject();
 <a class="jxr_linenumber" name="233" href="#233">233</a>     }
 <a class="jxr_linenumber" name="234" href="#234">234</a>     execArgs.addElement(startup);
-<a class="jxr_linenumber" name="235" href="#235">235</a>     <strong class="jxr_keyword">final</strong> Vector&lt;String&gt; resFiles = <strong class="jxr_keyword">new</strong> Vector&lt;String&gt;();
-<a class="jxr_linenumber" name="236" href="#236">236</a>     <strong class="jxr_keyword">final</strong> Vector&lt;String&gt; libFiles = <strong class="jxr_keyword">new</strong> Vector&lt;String&gt;();
+<a class="jxr_linenumber" name="235" href="#235">235</a>     <strong class="jxr_keyword">final</strong> Vector&lt;String&gt; resFiles = <strong class="jxr_keyword">new</strong> Vector&lt;&gt;();
+<a class="jxr_linenumber" name="236" href="#236">236</a>     <strong class="jxr_keyword">final</strong> Vector&lt;String&gt; libFiles = <strong class="jxr_keyword">new</strong> Vector&lt;&gt;();
 <a class="jxr_linenumber" name="237" href="#237">237</a>     String defFile = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="238" href="#238">238</a>     <strong class="jxr_keyword">final</strong> StringBuffer buf = <strong class="jxr_keyword">new</strong> StringBuffer();
 <a class="jxr_linenumber" name="239" href="#239">239</a>     <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> String sourceFile : sourceFiles) {

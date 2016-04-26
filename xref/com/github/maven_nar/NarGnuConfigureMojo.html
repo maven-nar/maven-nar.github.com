@@ -167,60 +167,56 @@
 <a class="jxr_linenumber" name="157" href="#157">157</a>           <strong class="jxr_keyword">final</strong> String[] a = <strong class="jxr_keyword">this</strong>.gnuConfigureArgs.split(<span class="jxr_string">" "</span>);
 <a class="jxr_linenumber" name="158" href="#158">158</a>           args = <strong class="jxr_keyword">new</strong> String[a.length + 2];
 <a class="jxr_linenumber" name="159" href="#159">159</a> 
-<a class="jxr_linenumber" name="160" href="#160">160</a>           <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; a.length; i++) {
-<a class="jxr_linenumber" name="161" href="#161">161</a>             args[i + 2] = a[i];
-<a class="jxr_linenumber" name="162" href="#162">162</a>           }
-<a class="jxr_linenumber" name="163" href="#163">163</a>         } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="164" href="#164">164</a>           args = <strong class="jxr_keyword">new</strong> String[2];
-<a class="jxr_linenumber" name="165" href="#165">165</a>         }
-<a class="jxr_linenumber" name="166" href="#166">166</a> 
-<a class="jxr_linenumber" name="167" href="#167">167</a>         <em class="jxr_comment">// first 2 args are constant</em>
-<a class="jxr_linenumber" name="168" href="#168">168</a>         args[0] = configure.getAbsolutePath();
-<a class="jxr_linenumber" name="169" href="#169">169</a>         args[1] = <span class="jxr_string">"--prefix="</span> + getGnuAOLTargetDirectory().getAbsolutePath();
-<a class="jxr_linenumber" name="170" href="#170">170</a> 
-<a class="jxr_linenumber" name="171" href="#171">171</a>         <strong class="jxr_keyword">final</strong> File buildDir = getGnuAOLSourceDirectory();
-<a class="jxr_linenumber" name="172" href="#172">172</a>         FileUtils.mkdir(buildDir.getPath());
-<a class="jxr_linenumber" name="173" href="#173">173</a> 
-<a class="jxr_linenumber" name="174" href="#174">174</a>         getLog().info(<span class="jxr_string">"args: "</span> + arraysToString(args));
-<a class="jxr_linenumber" name="175" href="#175">175</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> result = NarUtil.runCommand(<span class="jxr_string">"sh"</span>, args, buildDir, <strong class="jxr_keyword">null</strong>, getLog());
-<a class="jxr_linenumber" name="176" href="#176">176</a>         <strong class="jxr_keyword">if</strong> (result != 0) {
-<a class="jxr_linenumber" name="177" href="#177">177</a>           <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoExecutionException(<span class="jxr_string">"'"</span> + CONFIGURE + <span class="jxr_string">"' errorcode: "</span> + result);
-<a class="jxr_linenumber" name="178" href="#178">178</a>         }
-<a class="jxr_linenumber" name="179" href="#179">179</a>       }
-<a class="jxr_linenumber" name="180" href="#180">180</a>     }
-<a class="jxr_linenumber" name="181" href="#181">181</a>   }
-<a class="jxr_linenumber" name="182" href="#182">182</a> 
-<a class="jxr_linenumber" name="183" href="#183">183</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> runAutogen(<strong class="jxr_keyword">final</strong> File autogen, <strong class="jxr_keyword">final</strong> File targetDir, <strong class="jxr_keyword">final</strong> String args[])
-<a class="jxr_linenumber" name="184" href="#184">184</a>       <strong class="jxr_keyword">throws</strong> MojoExecutionException, MojoFailureException {
-<a class="jxr_linenumber" name="185" href="#185">185</a>     <em class="jxr_comment">// fix missing config directory</em>
-<a class="jxr_linenumber" name="186" href="#186">186</a>     <strong class="jxr_keyword">final</strong> File configDir = <strong class="jxr_keyword">new</strong> File(targetDir, <span class="jxr_string">"config"</span>);
-<a class="jxr_linenumber" name="187" href="#187">187</a>     <strong class="jxr_keyword">if</strong> (!configDir.exists()) {
-<a class="jxr_linenumber" name="188" href="#188">188</a>       configDir.mkdirs();
-<a class="jxr_linenumber" name="189" href="#189">189</a>     }
-<a class="jxr_linenumber" name="190" href="#190">190</a> 
-<a class="jxr_linenumber" name="191" href="#191">191</a>     NarUtil.makeExecutable(autogen, getLog());
-<a class="jxr_linenumber" name="192" href="#192">192</a>     getLog().debug(<span class="jxr_string">"running sh ./"</span> + autogen.getName());
-<a class="jxr_linenumber" name="193" href="#193">193</a> 
-<a class="jxr_linenumber" name="194" href="#194">194</a>     String arguments[] = <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="195" href="#195">195</a>     <strong class="jxr_keyword">if</strong> (args != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="196" href="#196">196</a>       arguments = <strong class="jxr_keyword">new</strong> String[1 + args.length];
-<a class="jxr_linenumber" name="197" href="#197">197</a>       <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; args.length; ++i) {
-<a class="jxr_linenumber" name="198" href="#198">198</a>         arguments[i + 1] = args[i];
-<a class="jxr_linenumber" name="199" href="#199">199</a>       }
-<a class="jxr_linenumber" name="200" href="#200">200</a>     } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="201" href="#201">201</a>       arguments = <strong class="jxr_keyword">new</strong> String[1];
-<a class="jxr_linenumber" name="202" href="#202">202</a>     }
-<a class="jxr_linenumber" name="203" href="#203">203</a>     arguments[0] = <span class="jxr_string">"./"</span> + autogen.getName();
-<a class="jxr_linenumber" name="204" href="#204">204</a> 
-<a class="jxr_linenumber" name="205" href="#205">205</a>     getLog().info(<span class="jxr_string">"args: "</span> + arraysToString(arguments));
-<a class="jxr_linenumber" name="206" href="#206">206</a> 
-<a class="jxr_linenumber" name="207" href="#207">207</a>     <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> result = NarUtil.runCommand(<span class="jxr_string">"sh"</span>, arguments, targetDir, <strong class="jxr_keyword">null</strong>, getLog());
-<a class="jxr_linenumber" name="208" href="#208">208</a>     <strong class="jxr_keyword">if</strong> (result != 0) {
-<a class="jxr_linenumber" name="209" href="#209">209</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoExecutionException(<span class="jxr_string">"'"</span> + autogen.getName() + <span class="jxr_string">"' errorcode: "</span> + result);
-<a class="jxr_linenumber" name="210" href="#210">210</a>     }
-<a class="jxr_linenumber" name="211" href="#211">211</a>   }
-<a class="jxr_linenumber" name="212" href="#212">212</a> 
-<a class="jxr_linenumber" name="213" href="#213">213</a> }
+<a class="jxr_linenumber" name="160" href="#160">160</a>           System.arraycopy(a, 0, args, 2, a.length);
+<a class="jxr_linenumber" name="161" href="#161">161</a>         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="162" href="#162">162</a>           args = <strong class="jxr_keyword">new</strong> String[2];
+<a class="jxr_linenumber" name="163" href="#163">163</a>         }
+<a class="jxr_linenumber" name="164" href="#164">164</a> 
+<a class="jxr_linenumber" name="165" href="#165">165</a>         <em class="jxr_comment">// first 2 args are constant</em>
+<a class="jxr_linenumber" name="166" href="#166">166</a>         args[0] = configure.getAbsolutePath();
+<a class="jxr_linenumber" name="167" href="#167">167</a>         args[1] = <span class="jxr_string">"--prefix="</span> + getGnuAOLTargetDirectory().getAbsolutePath();
+<a class="jxr_linenumber" name="168" href="#168">168</a> 
+<a class="jxr_linenumber" name="169" href="#169">169</a>         <strong class="jxr_keyword">final</strong> File buildDir = getGnuAOLSourceDirectory();
+<a class="jxr_linenumber" name="170" href="#170">170</a>         FileUtils.mkdir(buildDir.getPath());
+<a class="jxr_linenumber" name="171" href="#171">171</a> 
+<a class="jxr_linenumber" name="172" href="#172">172</a>         getLog().info(<span class="jxr_string">"args: "</span> + arraysToString(args));
+<a class="jxr_linenumber" name="173" href="#173">173</a>         <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> result = NarUtil.runCommand(<span class="jxr_string">"sh"</span>, args, buildDir, <strong class="jxr_keyword">null</strong>, getLog());
+<a class="jxr_linenumber" name="174" href="#174">174</a>         <strong class="jxr_keyword">if</strong> (result != 0) {
+<a class="jxr_linenumber" name="175" href="#175">175</a>           <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoExecutionException(<span class="jxr_string">"'"</span> + CONFIGURE + <span class="jxr_string">"' errorcode: "</span> + result);
+<a class="jxr_linenumber" name="176" href="#176">176</a>         }
+<a class="jxr_linenumber" name="177" href="#177">177</a>       }
+<a class="jxr_linenumber" name="178" href="#178">178</a>     }
+<a class="jxr_linenumber" name="179" href="#179">179</a>   }
+<a class="jxr_linenumber" name="180" href="#180">180</a> 
+<a class="jxr_linenumber" name="181" href="#181">181</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> runAutogen(<strong class="jxr_keyword">final</strong> File autogen, <strong class="jxr_keyword">final</strong> File targetDir, <strong class="jxr_keyword">final</strong> String args[])
+<a class="jxr_linenumber" name="182" href="#182">182</a>       <strong class="jxr_keyword">throws</strong> MojoExecutionException, MojoFailureException {
+<a class="jxr_linenumber" name="183" href="#183">183</a>     <em class="jxr_comment">// fix missing config directory</em>
+<a class="jxr_linenumber" name="184" href="#184">184</a>     <strong class="jxr_keyword">final</strong> File configDir = <strong class="jxr_keyword">new</strong> File(targetDir, <span class="jxr_string">"config"</span>);
+<a class="jxr_linenumber" name="185" href="#185">185</a>     <strong class="jxr_keyword">if</strong> (!configDir.exists()) {
+<a class="jxr_linenumber" name="186" href="#186">186</a>       configDir.mkdirs();
+<a class="jxr_linenumber" name="187" href="#187">187</a>     }
+<a class="jxr_linenumber" name="188" href="#188">188</a> 
+<a class="jxr_linenumber" name="189" href="#189">189</a>     NarUtil.makeExecutable(autogen, getLog());
+<a class="jxr_linenumber" name="190" href="#190">190</a>     getLog().debug(<span class="jxr_string">"running sh ./"</span> + autogen.getName());
+<a class="jxr_linenumber" name="191" href="#191">191</a> 
+<a class="jxr_linenumber" name="192" href="#192">192</a>     String arguments[] = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="193" href="#193">193</a>     <strong class="jxr_keyword">if</strong> (args != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="194" href="#194">194</a>       arguments = <strong class="jxr_keyword">new</strong> String[1 + args.length];
+<a class="jxr_linenumber" name="195" href="#195">195</a>       System.arraycopy(args, 0, arguments, 1, args.length);
+<a class="jxr_linenumber" name="196" href="#196">196</a>     } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="197" href="#197">197</a>       arguments = <strong class="jxr_keyword">new</strong> String[1];
+<a class="jxr_linenumber" name="198" href="#198">198</a>     }
+<a class="jxr_linenumber" name="199" href="#199">199</a>     arguments[0] = <span class="jxr_string">"./"</span> + autogen.getName();
+<a class="jxr_linenumber" name="200" href="#200">200</a> 
+<a class="jxr_linenumber" name="201" href="#201">201</a>     getLog().info(<span class="jxr_string">"args: "</span> + arraysToString(arguments));
+<a class="jxr_linenumber" name="202" href="#202">202</a> 
+<a class="jxr_linenumber" name="203" href="#203">203</a>     <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> result = NarUtil.runCommand(<span class="jxr_string">"sh"</span>, arguments, targetDir, <strong class="jxr_keyword">null</strong>, getLog());
+<a class="jxr_linenumber" name="204" href="#204">204</a>     <strong class="jxr_keyword">if</strong> (result != 0) {
+<a class="jxr_linenumber" name="205" href="#205">205</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoExecutionException(<span class="jxr_string">"'"</span> + autogen.getName() + <span class="jxr_string">"' errorcode: "</span> + result);
+<a class="jxr_linenumber" name="206" href="#206">206</a>     }
+<a class="jxr_linenumber" name="207" href="#207">207</a>   }
+<a class="jxr_linenumber" name="208" href="#208">208</a> 
+<a class="jxr_linenumber" name="209" href="#209">209</a> }
 </pre>
 <hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
 </html>

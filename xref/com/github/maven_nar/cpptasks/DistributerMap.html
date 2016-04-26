@@ -218,7 +218,7 @@
 <a class="jxr_linenumber" name="208" href="#208">208</a> <em class="jxr_javadoccomment">   * @return remote name for local file, null if unknown.</em>
 <a class="jxr_linenumber" name="209" href="#209">209</a> <em class="jxr_javadoccomment">   */</em>
 <a class="jxr_linenumber" name="210" href="#210">210</a>   <strong class="jxr_keyword">public</strong> String toRemote(<strong class="jxr_keyword">final</strong> String host, <strong class="jxr_keyword">final</strong> File localFile) {
-<a class="jxr_linenumber" name="211" href="#211">211</a>     <strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">this</strong>.remoteName != <strong class="jxr_keyword">null</strong> &amp;&amp; (<strong class="jxr_keyword">this</strong>.hosts == <strong class="jxr_keyword">null</strong> || <strong class="jxr_keyword">this</strong>.hosts.indexOf(host) &gt;= 0)) {
+<a class="jxr_linenumber" name="211" href="#211">211</a>     <strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">this</strong>.remoteName != <strong class="jxr_keyword">null</strong> &amp;&amp; (<strong class="jxr_keyword">this</strong>.hosts == <strong class="jxr_keyword">null</strong> || <strong class="jxr_keyword">this</strong>.hosts.contains(host))) {
 <a class="jxr_linenumber" name="212" href="#212">212</a>       <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="213" href="#213">213</a>         <strong class="jxr_keyword">final</strong> String canonical = localFile.getCanonicalPath();
 <a class="jxr_linenumber" name="214" href="#214">214</a>         <strong class="jxr_keyword">if</strong> (canonical.startsWith(<strong class="jxr_keyword">this</strong>.canonicalPath)) {

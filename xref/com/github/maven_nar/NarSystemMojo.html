@@ -68,13 +68,13 @@
 <a class="jxr_linenumber" name="58" href="#58">58</a>          .append(<span class="jxr_string">"        final String ao = System.getProperty(\&quot;os.arch\&quot;) + \&quot;-\&quot; + System.getProperty(\&quot;os.name\&quot;).replaceAll(\&quot; \&quot;, \&quot;\&quot;);\n"</span>);
 <a class="jxr_linenumber" name="59" href="#59">59</a>  
 <a class="jxr_linenumber" name="60" href="#60">60</a>      <em class="jxr_comment">// build map: AO -&gt; AOLs</em>
-<a class="jxr_linenumber" name="61" href="#61">61</a>      <strong class="jxr_keyword">final</strong> Map&lt;String, List&lt;String&gt;&gt; aoMap = <strong class="jxr_keyword">new</strong> LinkedHashMap&lt;String, List&lt;String&gt;&gt;();
+<a class="jxr_linenumber" name="61" href="#61">61</a>      <strong class="jxr_keyword">final</strong> Map&lt;String, List&lt;String&gt;&gt; aoMap = <strong class="jxr_keyword">new</strong> LinkedHashMap&lt;&gt;();
 <a class="jxr_linenumber" name="62" href="#62">62</a>      <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> String aol : NarProperties.getInstance(getMavenProject()).getKnownAOLs()) {
 <a class="jxr_linenumber" name="63" href="#63">63</a>        <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> dash = aol.lastIndexOf('-');
 <a class="jxr_linenumber" name="64" href="#64">64</a>        <strong class="jxr_keyword">final</strong> String ao = aol.substring(0, dash);
 <a class="jxr_linenumber" name="65" href="#65">65</a>        List&lt;String&gt; list = aoMap.get(ao);
 <a class="jxr_linenumber" name="66" href="#66">66</a>        <strong class="jxr_keyword">if</strong> (list == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="67" href="#67">67</a>          aoMap.put(ao, list = <strong class="jxr_keyword">new</strong> ArrayList&lt;String&gt;());
+<a class="jxr_linenumber" name="67" href="#67">67</a>          aoMap.put(ao, list = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;());
 <a class="jxr_linenumber" name="68" href="#68">68</a>        }
 <a class="jxr_linenumber" name="69" href="#69">69</a>        list.add(aol);
 <a class="jxr_linenumber" name="70" href="#70">70</a>      }

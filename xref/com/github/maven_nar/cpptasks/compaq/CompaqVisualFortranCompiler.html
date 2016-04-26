@@ -140,35 +140,33 @@
 <a class="jxr_linenumber" name="130" href="#130">130</a> 
 <a class="jxr_linenumber" name="131" href="#131">131</a>   @Override
 <a class="jxr_linenumber" name="132" href="#132">132</a>   <strong class="jxr_keyword">protected</strong> String getIncludeDirSwitch(<strong class="jxr_keyword">final</strong> String includeDir) {
-<a class="jxr_linenumber" name="133" href="#133">133</a>     <strong class="jxr_keyword">final</strong> StringBuffer buf = <strong class="jxr_keyword">new</strong> StringBuffer(<span class="jxr_string">"/include:"</span>);
-<a class="jxr_linenumber" name="134" href="#134">134</a>     <em class="jxr_comment">// BEGINFREEHEP quotes seem to confuse the compiler</em>
-<a class="jxr_linenumber" name="135" href="#135">135</a>     <em class="jxr_comment">// if (includeDir.indexOf(' ') &gt;= 0) {</em>
-<a class="jxr_linenumber" name="136" href="#136">136</a>     <em class="jxr_comment">// buf.append('&quot;');</em>
-<a class="jxr_linenumber" name="137" href="#137">137</a>     <em class="jxr_comment">// buf.append(includeDir);</em>
-<a class="jxr_linenumber" name="138" href="#138">138</a>     <em class="jxr_comment">// buf.append('&quot;');</em>
-<a class="jxr_linenumber" name="139" href="#139">139</a>     <em class="jxr_comment">// } else {</em>
-<a class="jxr_linenumber" name="140" href="#140">140</a>     buf.append(includeDir);
-<a class="jxr_linenumber" name="141" href="#141">141</a>     <em class="jxr_comment">// }</em>
-<a class="jxr_linenumber" name="142" href="#142">142</a>     <em class="jxr_comment">// ENDFREEHEP</em>
-<a class="jxr_linenumber" name="143" href="#143">143</a>     <strong class="jxr_keyword">return</strong> buf.toString();
-<a class="jxr_linenumber" name="144" href="#144">144</a>   }
-<a class="jxr_linenumber" name="145" href="#145">145</a> 
-<a class="jxr_linenumber" name="146" href="#146">146</a>   @Override
-<a class="jxr_linenumber" name="147" href="#147">147</a>   <strong class="jxr_keyword">public</strong> <a href="../../../../../com/github/maven_nar/cpptasks/compiler/Linker.html">Linker</a> getLinker(<strong class="jxr_keyword">final</strong> <a href="../../../../../com/github/maven_nar/cpptasks/compiler/LinkType.html">LinkType</a> type) {
-<a class="jxr_linenumber" name="148" href="#148">148</a>     <strong class="jxr_keyword">return</strong> CompaqVisualFortranLinker.getInstance().getLinker(type);
-<a class="jxr_linenumber" name="149" href="#149">149</a>   }
-<a class="jxr_linenumber" name="150" href="#150">150</a> 
-<a class="jxr_linenumber" name="151" href="#151">151</a>   @Override
-<a class="jxr_linenumber" name="152" href="#152">152</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> getMaximumCommandLength() {
-<a class="jxr_linenumber" name="153" href="#153">153</a>     <strong class="jxr_keyword">return</strong> 1024;
-<a class="jxr_linenumber" name="154" href="#154">154</a>   }
-<a class="jxr_linenumber" name="155" href="#155">155</a> 
-<a class="jxr_linenumber" name="156" href="#156">156</a>   @Override
-<a class="jxr_linenumber" name="157" href="#157">157</a>   <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> getUndefineSwitch(<strong class="jxr_keyword">final</strong> StringBuffer buf, <strong class="jxr_keyword">final</strong> String define) {
-<a class="jxr_linenumber" name="158" href="#158">158</a>     buf.append(<span class="jxr_string">"/undefine:"</span>);
-<a class="jxr_linenumber" name="159" href="#159">159</a>     buf.append(define);
-<a class="jxr_linenumber" name="160" href="#160">160</a>   }
-<a class="jxr_linenumber" name="161" href="#161">161</a> }
+<a class="jxr_linenumber" name="133" href="#133">133</a>     <em class="jxr_comment">// BEGINFREEHEP quotes seem to confuse the compiler</em>
+<a class="jxr_linenumber" name="134" href="#134">134</a>     <em class="jxr_comment">// if (includeDir.indexOf(' ') &gt;= 0) {</em>
+<a class="jxr_linenumber" name="135" href="#135">135</a>     <em class="jxr_comment">// buf.append('&quot;');</em>
+<a class="jxr_linenumber" name="136" href="#136">136</a>     <em class="jxr_comment">// buf.append(includeDir);</em>
+<a class="jxr_linenumber" name="137" href="#137">137</a>     <em class="jxr_comment">// buf.append('&quot;');</em>
+<a class="jxr_linenumber" name="138" href="#138">138</a>     <em class="jxr_comment">// } else {</em>
+<a class="jxr_linenumber" name="139" href="#139">139</a>     <em class="jxr_comment">// }</em>
+<a class="jxr_linenumber" name="140" href="#140">140</a>     <em class="jxr_comment">// ENDFREEHEP</em>
+<a class="jxr_linenumber" name="141" href="#141">141</a>     <strong class="jxr_keyword">return</strong> <span class="jxr_string">"/include:"</span> + includeDir;
+<a class="jxr_linenumber" name="142" href="#142">142</a>   }
+<a class="jxr_linenumber" name="143" href="#143">143</a> 
+<a class="jxr_linenumber" name="144" href="#144">144</a>   @Override
+<a class="jxr_linenumber" name="145" href="#145">145</a>   <strong class="jxr_keyword">public</strong> <a href="../../../../../com/github/maven_nar/cpptasks/compiler/Linker.html">Linker</a> getLinker(<strong class="jxr_keyword">final</strong> <a href="../../../../../com/github/maven_nar/cpptasks/compiler/LinkType.html">LinkType</a> type) {
+<a class="jxr_linenumber" name="146" href="#146">146</a>     <strong class="jxr_keyword">return</strong> CompaqVisualFortranLinker.getInstance().getLinker(type);
+<a class="jxr_linenumber" name="147" href="#147">147</a>   }
+<a class="jxr_linenumber" name="148" href="#148">148</a> 
+<a class="jxr_linenumber" name="149" href="#149">149</a>   @Override
+<a class="jxr_linenumber" name="150" href="#150">150</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> getMaximumCommandLength() {
+<a class="jxr_linenumber" name="151" href="#151">151</a>     <strong class="jxr_keyword">return</strong> 1024;
+<a class="jxr_linenumber" name="152" href="#152">152</a>   }
+<a class="jxr_linenumber" name="153" href="#153">153</a> 
+<a class="jxr_linenumber" name="154" href="#154">154</a>   @Override
+<a class="jxr_linenumber" name="155" href="#155">155</a>   <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> getUndefineSwitch(<strong class="jxr_keyword">final</strong> StringBuffer buf, <strong class="jxr_keyword">final</strong> String define) {
+<a class="jxr_linenumber" name="156" href="#156">156</a>     buf.append(<span class="jxr_string">"/undefine:"</span>);
+<a class="jxr_linenumber" name="157" href="#157">157</a>     buf.append(define);
+<a class="jxr_linenumber" name="158" href="#158">158</a>   }
+<a class="jxr_linenumber" name="159" href="#159">159</a> }
 </pre>
 <hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
 </html>

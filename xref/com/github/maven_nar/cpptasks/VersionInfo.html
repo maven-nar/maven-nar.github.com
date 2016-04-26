@@ -428,7 +428,7 @@
 <a class="jxr_linenumber" name="418" href="#418">418</a>     <strong class="jxr_keyword">if</strong> (currentRef == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="419" href="#419">419</a>       <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>;
 <a class="jxr_linenumber" name="420" href="#420">420</a>     }
-<a class="jxr_linenumber" name="421" href="#421">421</a>     <strong class="jxr_keyword">final</strong> Vector&lt;VersionInfo&gt; stack = <strong class="jxr_keyword">new</strong> Vector&lt;VersionInfo&gt;(5);
+<a class="jxr_linenumber" name="421" href="#421">421</a>     <strong class="jxr_keyword">final</strong> Vector&lt;VersionInfo&gt; stack = <strong class="jxr_keyword">new</strong> Vector&lt;&gt;(5);
 <a class="jxr_linenumber" name="422" href="#422">422</a>     stack.addElement(<strong class="jxr_keyword">this</strong>);
 <a class="jxr_linenumber" name="423" href="#423">423</a>     <strong class="jxr_keyword">while</strong> (currentRef != <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="424" href="#424">424</a>       <strong class="jxr_keyword">final</strong> Object obj = currentRef.getReferencedObject(getProject());

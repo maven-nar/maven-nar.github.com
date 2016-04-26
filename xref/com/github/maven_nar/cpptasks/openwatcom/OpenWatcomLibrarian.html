@@ -272,7 +272,7 @@
 <a class="jxr_linenumber" name="262" href="#262">262</a>     <strong class="jxr_keyword">final</strong> String[] preargs = config.getPreArguments();
 <a class="jxr_linenumber" name="263" href="#263">263</a>     <strong class="jxr_keyword">final</strong> String[] endargs = config.getEndArguments();
 <a class="jxr_linenumber" name="264" href="#264">264</a>     <strong class="jxr_keyword">final</strong> StringBuffer buf = <strong class="jxr_keyword">new</strong> StringBuffer();
-<a class="jxr_linenumber" name="265" href="#265">265</a>     <strong class="jxr_keyword">final</strong> Vector&lt;String&gt; execArgs = <strong class="jxr_keyword">new</strong> Vector&lt;String&gt;(preargs.length + endargs.length + 10 + sourceFiles.length);
+<a class="jxr_linenumber" name="265" href="#265">265</a>     <strong class="jxr_keyword">final</strong> Vector&lt;String&gt; execArgs = <strong class="jxr_keyword">new</strong> Vector&lt;&gt;(preargs.length + endargs.length + 10 + sourceFiles.length);
 <a class="jxr_linenumber" name="266" href="#266">266</a> 
 <a class="jxr_linenumber" name="267" href="#267">267</a>     execArgs.addElement(<strong class="jxr_keyword">this</strong>.getCommand());
 <a class="jxr_linenumber" name="268" href="#268">268</a>     <strong class="jxr_keyword">final</strong> String outputFileName = <strong class="jxr_keyword">new</strong> File(outputDir, outputName).toString();

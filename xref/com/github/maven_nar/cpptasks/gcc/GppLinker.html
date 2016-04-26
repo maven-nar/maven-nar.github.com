@@ -96,7 +96,7 @@
 <a class="jxr_linenumber" name="86" href="#86">86</a>    <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> addImpliedArgs(<strong class="jxr_keyword">final</strong> <a href="../../../../../com/github/maven_nar/cpptasks/CCTask.html">CCTask</a> task, <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> debug, <strong class="jxr_keyword">final</strong> <a href="../../../../../com/github/maven_nar/cpptasks/compiler/LinkType.html">LinkType</a> linkType,
 <a class="jxr_linenumber" name="87" href="#87">87</a>        <strong class="jxr_keyword">final</strong> Vector&lt;String&gt; args) {
 <a class="jxr_linenumber" name="88" href="#88">88</a>      <strong class="jxr_keyword">super</strong>.addImpliedArgs(task, debug, linkType, args);
-<a class="jxr_linenumber" name="89" href="#89">89</a>      <strong class="jxr_keyword">if</strong> (getIdentifier().indexOf(<span class="jxr_string">"mingw"</span>) &gt;= 0) {
+<a class="jxr_linenumber" name="89" href="#89">89</a>      <strong class="jxr_keyword">if</strong> (getIdentifier().contains(<span class="jxr_string">"mingw"</span>)) {
 <a class="jxr_linenumber" name="90" href="#90">90</a>        <strong class="jxr_keyword">if</strong> (linkType.isSubsystemConsole()) {
 <a class="jxr_linenumber" name="91" href="#91">91</a>          args.addElement(<span class="jxr_string">"-mconsole"</span>);
 <a class="jxr_linenumber" name="92" href="#92">92</a>        }
@@ -262,7 +262,7 @@
 <a class="jxr_linenumber" name="252" href="#252">252</a>   @Override
 <a class="jxr_linenumber" name="253" href="#253">253</a>   <strong class="jxr_keyword">public</strong> File[] getLibraryPath() {
 <a class="jxr_linenumber" name="254" href="#254">254</a>     <strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">this</strong>.libDirs == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="255" href="#255">255</a>       <strong class="jxr_keyword">final</strong> Vector&lt;String&gt; dirs = <strong class="jxr_keyword">new</strong> Vector&lt;String&gt;();
+<a class="jxr_linenumber" name="255" href="#255">255</a>       <strong class="jxr_keyword">final</strong> Vector&lt;String&gt; dirs = <strong class="jxr_keyword">new</strong> Vector&lt;&gt;();
 <a class="jxr_linenumber" name="256" href="#256">256</a>       <em class="jxr_comment">// Ask GCC where it will look for its libraries.</em>
 <a class="jxr_linenumber" name="257" href="#257">257</a>       <strong class="jxr_keyword">final</strong> String[] args = <strong class="jxr_keyword">new</strong> String[] {
 <a class="jxr_linenumber" name="258" href="#258">258</a>           <span class="jxr_string">"g++"</span>, <span class="jxr_string">"-print-search-dirs"</span>

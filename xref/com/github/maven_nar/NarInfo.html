@@ -147,7 +147,7 @@
 <a class="jxr_linenumber" name="137" href="#137">137</a>   }
 <a class="jxr_linenumber" name="138" href="#138">138</a> 
 <a class="jxr_linenumber" name="139" href="#139">139</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> getProperty(<strong class="jxr_keyword">final</strong> <a href="../../../com/github/maven_nar/AOL.html">AOL</a> aol, <strong class="jxr_keyword">final</strong> String key, <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> defaultValue) {
-<a class="jxr_linenumber" name="140" href="#140">140</a>     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> Boolean(getProperty(aol, key, String.valueOf(defaultValue))).booleanValue();
+<a class="jxr_linenumber" name="140" href="#140">140</a>     <strong class="jxr_keyword">return</strong> Boolean.valueOf(getProperty(aol, key, String.valueOf(defaultValue))).booleanValue();
 <a class="jxr_linenumber" name="141" href="#141">141</a>   }
 <a class="jxr_linenumber" name="142" href="#142">142</a> 
 <a class="jxr_linenumber" name="143" href="#143">143</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> File getProperty(<strong class="jxr_keyword">final</strong> <a href="../../../com/github/maven_nar/AOL.html">AOL</a> aol, <strong class="jxr_keyword">final</strong> String key, <strong class="jxr_keyword">final</strong> File defaultValue) {
